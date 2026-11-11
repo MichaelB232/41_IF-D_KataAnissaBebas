@@ -1,116 +1,171 @@
-# Analisis Regresi dalam Memprediksi Konsumsi Energi Terbarukan di Amerika Serikat Berdasarkan Sektor Pengguna, Faktor Musiman dan Tren Tahunan
+# Analisis Regresi Konsumsi Energi Terbarukan di Amerika Serikat
+### *U.S. Renewable Energy Consumption Forecasting based on Sectoral Utilization, Seasonal Cycles, and Long-Term Trends*
 
-Berkas pendukung laporan praktikum Data Science, tahap **Data Understanding, Data Cleaning, Preprocessing, dan Feature Selection (Progress 2 - Kerangka Kerja CRISP-DM)**.
-
-Program Studi Informatika, Fakultas Teknik Industri, UPN "Veteran" Yogyakarta, 2026.  
-Dosen Pengampu: Dhimas Arief Dharmawan.
-
-| Nama | NIM |
-|---|---|
-| Artsetya Evan Justine Wijaya | 123240169 |
-| Michael Bintang F.S.J | 123240145 |
-| Anisa Zahida | 123240049 |
-| Hardanu Ilham Purnama | 123240166 |
+![CRISP-DM](https://img.shields.io/badge/Methodology-CRISP--DM-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-brightgreen.svg)
+![License](https://img.shields.io/badge/License-U.S.%20Government%20Works-lightgrey.svg)
+![Data Source](https://img.shields.io/badge/Data-U.S.%20EIA%20%2F%20Kaggle-orange.svg)
+![Model](https://img.shields.io/badge/Model-Multiple%20Linear%20Regression-purple.svg)
 
 ---
 
-## Matriks Pemenuhan Capaian Pembelajaran (Progress 2)
+## 📌 Gambaran Proyek (*Project Overview*)
 
-Seluruh 14 butir capaian pada lembar capaian Progress 2 telah dipenuhi dan terdokumentasi secara lengkap:
+Transisi energi global menuntut pemahaman mendalam terhadap pola pemanfaatan energi bersih. Di Amerika Serikat, konsumsi energi terbarukan memiliki karakteristik yang sangat heterogen: laju adopsi bervariasi tajam antar-sektor pengguna dan menunjukkan fluktuasi periodik tahunan yang dipengaruhi oleh faktor cuaca dan musim.
 
-| No | Aspek Penilaian | Item Penilaian / Capaian | Status | Rujukan Berkas / Bagian |
-|:---:|---|---|:---:|---|
-| **1** | Data Understanding | Sumber data & lisensi/izin | ✅ Lengkap | Notebook Bab 1, README bagian Sumber Data |
-| **2** | Data Understanding | Data dictionary (variabel, tipe, unit) | ✅ Lengkap | Notebook Bab 2 (Tabel Kamus Data 17+ variabel) |
-| **3** | Data Understanding | Kualitas data (missing, outlier, duplikasi) | ✅ Lengkap | Notebook Bab 3, `outputs/tabel_audit_kualitas_data.csv` |
-| **4** | Data Understanding | EDA berinsight (distribusi/korelasi) | ✅ Lengkap | Notebook Bab 5, `figures/gambarB1`, `figures/gambarB4` |
-| **5** | Data Understanding | Representativitas & bias sampel | ✅ Lengkap | Notebook Bab 5.5 (Evaluasi 4 dimensi bias sampel) |
-| **6** | EDA | Statistik deskriptif ditampilkan dan disimpulkan | ✅ Lengkap | Notebook Bab 5.1, `outputs/tabel_deskriptif_sektor.csv` |
-| **7** | EDA | Visualisasi fitur dan target, beri penjelasan atas temuan | ✅ Lengkap | Notebook Bab 5.2 & 5.3 (Narasi di bawah grafik) |
-| **8** | EDA | Analisis korelasi fitur vs target (3 insight cleaning/modeling) | ✅ Lengkap | Notebook Bab 5.4.1 (3 insight utama terstruktur) |
-| **9** | Audit Kualitas Data | Menghitung missing value, outlier, duplikat tiap kolom | ✅ Lengkap | `outputs/tabel_audit_kualitas_data.csv` |
-| **10** | Cleaning | Menyelesaikan masalah kualitas data dengan strategi tepat | ✅ Lengkap | Notebook Bab 4.1 (Drop Transportation, 2024, fusi hydro, perbaikan typo) |
-| **11** | Cleaning | Menampilkan kondisi sebelum vs sesudah dibersihkan | ✅ Lengkap | Notebook Bab 4.2, `outputs/tabel_sebelum_vs_sesudah_cleaning.csv`, `figures/gambar5` |
-| **12** | Preprocessing | Encoding, scaling, dan penanganan data imbalance | ✅ Lengkap | Notebook Bab 7.1 - 7.3, `outputs/X_train_preprocessed.csv` |
-| **13** | Preprocessing | Splitting dataset train/test (kronologis time-series) | ✅ Lengkap | Notebook Bab 7.4, `outputs/train_dataset.csv`, `outputs/test_dataset.csv`, `figures/gambar7` |
-| **14** | Feature Selection | Memilih fitur dengan alasan & bukti empiris | ✅ Lengkap | Notebook Bab 6, `outputs/tabel_matriks_feature_selection.csv`, `outputs/tabel_evaluasi_model.csv`, `figures/gambar6` |
+Repositori ini memuat seluruh kode, visualisasi, dan dataset pendukung untuk proyek penelitian:  
+**"Analisis Regresi dalam Memprediksi Konsumsi Energi Terbarukan di Amerika Serikat Berdasarkan Sektor Pengguna, Faktor Musiman dan Tren Tahunan"**.
+
+Proyek ini bertujuan untuk membangun model peramalan konsumsi energi terbarukan berbasis **Multiple Linear Regression (OLS)** yang akurat, teruji secara ekonometrik, dan bebas dari *data leakage*, sekaligus memberikan rekomendasi strategis bagi utilitas listrik, pembuat kebijakan, dan pelaku industri energi.
 
 ---
 
-## Sumber Data
+## 🎯 Sasaran & Metrik Pemodelan (*SMART Objectives*)
 
-- **Dataset:** *U.S. Renewable Energy Consumption* (Alistair King), Kaggle  
-  https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s
-- **Sumber Asli:** U.S. Energy Information Administration (EIA), *Monthly Energy Review*  
-  https://www.eia.gov/totalenergy/data/monthly/
-- **Lisensi:** U.S. Government Works (Public Domain)
-- **Satuan:** trillion British Thermal Units (trillion BTU)
-- **Isi Mentah:** 3.065 baris (613 bulan x 5 sektor), Januari 1973 sampai Januari 2024, 17 kolom.
-- **Data Bersih (Siap Modeling):** 2.448 baris (612 bulan utuh x 4 sektor aktif: Electric Power, Industrial, Residential, Commercial), Januari 1973 sampai Desember 2023.
+1. **Akurasi Prediksi *Out-of-Time*:**
+   - Membangun model regresi yang dievaluasi pada data uji kronologis 5 tahun terakhir (2019–2023, tanpa pengacakan).
+   - Target keberhasilan: **$Adjusted\ R^2 \ge 0,80$**, **$\text{RMSE} \le 40\text{ trillion BTU}$**, dan **$\text{MAPE} < 10\%$**.
+   - Model melampaui tolok ukur dasar (*mean predictor* $R^2 = -0,14$ dan model sektor saja $R^2 = 0,62$).
+2. **Kelayakan Asumsi Klasik OLS:**
+   - Menguji dan memenuhi 4 asumsi klasik ekonometrika:
+     - **Multikolinearitas:** $\text{VIF} < 5$ untuk seluruh variabel independen.
+     - **Autokorelasi:** Uji Durbin-Watson / Breusch-Godfrey ($p > 0,05$).
+     - **Heteroskedastisitas:** Uji Breusch-Pagan ($p > 0,05$).
+     - **Normalitas Residual:** Uji Jarque-Bera ($p > 0,05$).
+3. **Dampak Bisnis & Kebijakan Publik:**
+   - Mengestimasi periode dan besaran beban puncak musiman (*peak demand*) untuk efisiensi jadwal pemeliharaan jaringan (*grid maintenance*) dan kontrak pengadaan energi jangka panjang (*Power Purchase Agreements*).
 
 ---
 
-## Struktur Folder Proyek
+## 🔬 Metodologi Penelitian (Kerangka CRISP-DM)
+
+Proyek ini disusun secara sistematis mengacu pada standar industri **CRISP-DM (Cross-Industry Standard Process for Data Mining)**:
 
 ```
-renewable_energy_us_project/
-├── Renewable_Energy_Data_Understanding.ipynb   notebook utama (Data Understanding s/d Preprocessing & Feature Selection)
-├── README.md                                    dokumentasi proyek dan panduan capaian Progress 2
-├── requirements.txt                             daftar dependensi lingkungan kerja
+[1. Business Understanding] ──► [2. Data Understanding] ──► [3. Data Cleaning]
+                                                                     │
+[6. Evaluation & Policy]   ◄── [5. Modeling & Assumptions] ◄── [4. Data Preparation]
+```
+
+### 1. Data Understanding & Audit
+- **Sumber Data:** U.S. Energy Information Administration (EIA) *Monthly Energy Review* (1973–2024), 3.065 baris awal $\times$ 17 kolom numerik/kategori.
+- **Audit Kualitas:** Pemeriksaan nilai 0 sebagai representasi *not reported/missing*, konfirmasi ketiadaan duplikasi baris, serta identifikasi pencilan (*IQR rule*).
+- **Analisis Deret Waktu:** Dekomposisi STL (*Seasonal-Trend decomposition using LOESS*), uji stasioneritas Augmented Dickey-Fuller (ADF), dan uji beda musiman Kruskal-Wallis ($p < 0,001$).
+
+### 2. Data Cleaning
+- **Koreksi Tipografi:** Standardisasi inkonsistensi ejaan `"Commerical"` $\rightarrow$ `"Commercial"`.
+- **Fusi Fitur Hidro:** Penyatuan kolom komplementer `Hydroelectric Power` dan `Conventional Hydroelectric Power` menjadi satu fitur konsisten `hydro`.
+- **Eliminasi Sektor Non-Informatif:** Menghapus sektor *Transportation* karena nilai target 100% *missing*.
+- **Pembersihan Periode Parsial:** Mengeliminasi Januari 2024 untuk menjaga keutuhan siklus tahunan (menghasilkan 2.448 baris bersih periode 1973–2023).
+
+### 3. Feature Selection & Engineering
+- **Pencegahan *Target Leakage*:** Sub-komponen energi mentah (*hydro, solar, wind, biomass, geothermal*) dikeluarkan dari prediktor karena total konsumsi merupakan penjumlahan linier eksak dari komponen-komponen tersebut.
+- **Fitur Baru yang Direkayasa:**
+  - `t`: Indeks waktu kontinu (0 sampai 611 bulan) untuk memodelkan laju tren jangka panjang.
+  - `Sector_t`: Interaksi sektor $\times$ tren untuk menangkap kemiringan tren yang berlainan antar-sektor.
+  - `Month` (Dummy / Cyclical $\sin$ & $\cos$): Representasi periodik fluktuasi 12-bulanan kalender.
+
+### 4. Data Preprocessing & Splitting
+- **Skema Splitting Kronologis:** Pembagian berbasis waktu: **Data Latih (1973–2018: 2.208 observasi)** dan **Data Uji (2019–2023: 240 observasi)**. Pengacakan acak (*random shuffle*) dilarang guna menghindari *look-ahead bias* / *temporal leakage*.
+- **Encoding & Scaling:** One-Hot Encoding pada sektor dan bulan; Min-Max dan Standard Scaling dihitung eksklusif pada data latih (*fit on train, transform on test*).
+
+---
+
+## 📊 Hasil dan Bukti Empiris (*Ablation Study*)
+
+Pengujian bertahap pada himpunan data uji (*out-of-time test set*) membuktikan kontribusi signifikan dari seleksi dan rekayasa fitur:
+
+| Tingkat Model | Fitur yang Digunakan | $R^2$ Test | RMSE (Trillion BTU) | MAPE (%) | Keterangan |
+|---|---|:---:|:---:|:---:|---|
+| **Baseline 1** | Tanpa fitur (Intersept Rerata) | $-0,22$ | $107,4$ | $127,8\%$ | Tolok ukur terendah tanpa informasi waktu/sektor |
+| **Model 2** | `Sector` (One-Hot) | $0,47$ | $70,7$ | $36,3\%$ | Menangkap variasi skala dasar antar-sektor |
+| **Model 3** | `Sector` $+$ `Sector_t` (Interaksi Tren) | $0,85$ | $37,3$ | $15,8\%$ | Menangkap divergensi arah pertumbuhan tiap sektor |
+| **Model 4** | `Sector` $+$ `Sector_t` $+$ `Month` (Lengkap) | **$0,854$** | **$37,1$** | **$16,6\%$** | **Konfigurasi fitur optimal (menjelaskan >85% variansi)** |
+
+---
+
+## 📁 Struktur Berkas Repositori
+
+```
+├── Renewable_Energy_Data_Understanding.ipynb   # Notebook utama (Data Understanding s/d Preprocessing)
+├── README.md                                    # Dokumentasi komprehensif proyek
+├── requirements.txt                             # Daftar dependensi pustaka Python
 ├── data/
-│   └── dataset.csv                             dataset mentah asli dari EIA/Kaggle
-├── figures/                                    visualisasi grafik hasil analisis (PNG)
-│   ├── gambar1_pola_nan.png                    heatmap ketersediaan dan missing data per sektor
-│   ├── gambar2_deret_waktu_sektor.png          tren deret waktu konsumsi bulanan dan moving average 12 bulan
-│   ├── gambar3_indeks_musiman.png              indeks musiman konsumsi energi per sektor
-│   ├── gambar4_bauran_electric_power.png       transformasi bauran energi sektor Electric Power
-│   ├── gambar5_sebelum_vs_sesudah_cleaning.png perbandingan kuantitatif kondisi sebelum vs sesudah pembersihan
-│   ├── gambar6_evaluasi_feature_selection.png  bukti empiris lonjakan R² dan penurunan RMSE hasil seleksi fitur
-│   ├── gambar7_train_test_split.png            visualisasi pembagian data latih (1973-2018) dan data uji (2019-2023)
-│   ├── gambarB1_distribusi_total_sektor.png    histogram sebaran konsumsi bulanan per sektor
-│   ├── gambarB2_boxplot_indeks_bulan.png       boxplot sebaran rasio musiman per bulan
-│   ├── gambarB3_acf_selisih_pertama.png        autokorelasi (ACF) setelah pembedaan pertama (differencing)
-│   └── gambarB4_korelasi_antar_sektor.png      matriks korelasi antar-sektor (level vs selisih 12 bulan)
-└── outputs/                                    tabel ringkasan, dataset bersih, dan partisi train/test (CSV)
-    ├── dataset_bersih.csv                      dataset bersih siap modeling (2.448 baris x 17 kolom)
-    ├── train_dataset.csv                       himpunan data latih kronologis (1973-2018: 2.208 baris)
-    ├── test_dataset.csv                        himpunan data uji kronologis (2019-2023: 240 baris)
-    ├── X_train_preprocessed.csv                matriks fitur data latih (One-Hot, Scaled, Interactions)
-    ├── X_test_preprocessed.csv                 matriks fitur data uji (One-Hot, Scaled, Interactions)
-    ├── y_train.csv                             vektor target data latih
-    ├── y_test.csv                              vektor target data uji
-    ├── tabel_audit_kualitas_data.csv           ringkasan audit missing, duplikat, dan outlier tiap kolom
-    ├── tabel_sebelum_vs_sesudah_cleaning.csv   tabel komparasi sebelum vs sesudah cleaning
-    ├── tabel_matriks_feature_selection.csv     matriks alasan & bukti fitur dipakai/dibuang/direkayasa
-    ├── tabel_evaluasi_model.csv                performa model bertahap (R², RMSE, MAPE)
-    ├── tabel_deskriptif_sektor.csv             statistik deskriptif per sektor & CAGR
-    ├── tabel_tren_musiman_stasioneritas.csv    kekuatan tren, musiman, uji Kruskal-Wallis, ADF test
-    ├── tabel_bauran_electric_power.csv         persentase bauran sumber energi listrik
-    ├── tabel_outlier_iqr.csv                   deteksi outlier aturan IQR per sektor
-    ├── tabel_validasi_rumus_total.csv          verifikasi konsistensi penjumlahan target
-    ├── tabel_korelasi_waktu_bulan.csv          korelasi Spearman target terhadap waktu dan siklus bulan
-    ├── tabel_korelasi_antar_sektor_level.csv   matriks korelasi silang antar sektor
-    ├── tabel_korelasi_antar_sektor_selisih12.csv matriks korelasi diferensiasi tahunan
-    └── verifikasi_angka_business_understanding.csv evaluasi tujuan SMART
+│   └── dataset.csv                             # Dataset mentah asli EIA/Kaggle (3.065 baris)
+├── figures/                                    # Grafik visualisasi resolusi tinggi (PNG)
+│   ├── gambar1_pola_nan.png                    # Heatmap missing data per sektor dan jenis energi
+│   ├── gambar2_deret_waktu_sektor.png          # Deret waktu konsumsi bulanan vs MA 12-bulan
+│   ├── gambar3_indeks_musiman.png              # Indeks musiman rasio per sektor
+│   ├── gambar4_bauran_electric_power.png       # Evolusi transisi bauran energi listrik
+│   ├── gambar5_sebelum_vs_sesudah_cleaning.png # Metrik perbandingan kondisi data sebelum vs sesudah cleaning
+│   ├── gambar6_evaluasi_feature_selection.png  # Bukti kenaikan R² dan penurunan RMSE per model
+│   ├── gambar7_train_test_split.png            # Visualisasi time-series split (Train vs Test)
+│   ├── gambarB1_distribusi_total_sektor.png    # Histogram distribusi konsumsi tiap sektor
+│   ├── gambarB2_boxplot_indeks_bulan.png       # Variasi sebaran rasio musiman per bulan
+│   ├── gambarB3_acf_selisih_pertama.png        # Plot Autokorelasi (ACF) setelah differencing
+│   └── gambarB4_korelasi_antar_sektor.png      # Matriks korelasi silang antar sektor
+└── outputs/                                    # Dataset bersih, partisi train/test, dan tabel analisis (CSV)
+    ├── dataset_bersih.csv                      # Data bersih konsumsi (2.448 baris x 17 kolom)
+    ├── train_dataset.csv                       # Data latih kronologis 1973–2018 (2.208 baris)
+    ├── test_dataset.csv                        # Data uji kronologis 2019–2023 (240 baris)
+    ├── X_train_preprocessed.csv                # Matriks fitur latih siap regresi
+    ├── X_test_preprocessed.csv                 # Matriks fitur uji siap regresi
+    ├── y_train.csv                             # Target latih
+    ├── y_test.csv                              # Target uji
+    ├── tabel_audit_kualitas_data.csv           # Ringkasan audit missing, duplikat, outlier per kolom
+    ├── tabel_sebelum_vs_sesudah_cleaning.csv   # Perbandingan kuantitatif pembersihan data
+    ├── tabel_matriks_feature_selection.csv     # Matriks alasan seleksi fitur dipakai/dibuang
+    ├── tabel_evaluasi_model.csv                # Rekapitulasi metrik performa model
+    ├── tabel_deskriptif_sektor.csv             # Statistik deskriptif dan laju CAGR per sektor
+    ├── tabel_tren_musiman_stasioneritas.csv    # Evaluasi STL, Kruskal-Wallis, ADF, dan ACF
+    ├── tabel_bauran_electric_power.csv         # Pangsa bauran sumber energi listrik
+    ├── tabel_outlier_iqr.csv                   # Deteksi outlier aturan IQR per sektor
+    ├── tabel_validasi_rumus_total.csv          # Verifikasi konsistensi penjumlahan target
+    ├── tabel_korelasi_waktu_bulan.csv          # Korelasi Spearman terhadap waktu dan musiman
+    └── verifikasi_angka_business_understanding.csv # Verifikasi angka SMART
 ```
 
 ---
 
-## Ringkasan Metodologi Data Preparation (Progress 2)
+## 🚀 Panduan Menjalankan Proyek (*Quickstart*)
 
-1. **Audit & Data Cleaning:**
-   - Standarisasi typo `"Commerical"` $\rightarrow$ `"Commercial"`.
-   - Konversi nilai representasi `0` menjadi `NaN`.
-   - Fusi kolom hidro `Hydroelectric Power` dan `Conventional Hydroelectric Power` menjadi `hydro`.
-   - Eliminasi sektor *Transportation* (100% missing pada target `Total Renewable Energy`).
-   - Eliminasi tahun parsial 2024 (hanya 1 bulan data) guna menjaga keutuhan siklus tahunan 1973–2023.
+### 1. Kloning Repositori
+```bash
+git clone https://github.com/MichaelB232/41_IF-D_KataAnissaBebas.git
+cd 41_IF-D_KataAnissaBebas
+```
 
-2. **Feature Selection & Engineering:**
-   - **Fitur Dipakai:** `Sector` (One-Hot), `t` (indeks waktu kontinu), `Sector_t` (interaksi tren per sektor), dan dummy `Month` (komponen musiman).
-   - **Fitur Dibuang:** Sub-komponen energi mentah (`hydro`, `solar`, `wind`, dll.) dibuang dari input untuk mencegah **target leakage** dan multikolinearitas sempurna karena target merupakan penjumlahan linier langsung dari komponen-komponen tersebut.
-   - **Bukti Empiris:** Penambahan fitur seleksi terbukti meningkatkan $R^2$ dari $-0,22$ (baseline mean) $\rightarrow$ $0,47$ (sektor) $\rightarrow$ $0,85$ (sektor x tren) $\rightarrow$ **$0,854$ (lengkap + musiman)** dengan RMSE turun dari $107,4$ ke $37,1$.
+### 2. Siapkan Lingkungan Kerja & Dependensi
+Disarankan menggunakan *virtual environment*:
+```bash
+python -m venv .venv
+# Mengaktifkan venv:
+# Windows (PowerShell):
+.venv\Scripts\Activate.ps1
+# Linux / macOS:
+source .venv/bin/activate
 
-3. **Preprocessing & Splitting:**
-   - **Encoding:** One-Hot Encoding untuk variabel nominal `Sector` dan `Month` (dengan kategori referensi untuk menghindari *dummy variable trap*).
-   - **Scaling:** Standard Scaling dan Min-Max Scaling pada fitur numerik kontinu $t$ yang di-*fit* hanya pada data latih dan di-*transform* pada data uji.
-   - **Data Splitting:** Pembagian kronologis (*time-series split*) periode 1973–2018 sebagai **Data Latih (2.208 baris)** dan 2019–2023 sebagai **Data Uji (240 baris)** untuk menghindari *data leakage* / *look-ahead bias*.
+# Pasang pustaka pendukung:
+pip install -r requirements.txt
+```
+
+### 3. Eksekusi Analisis
+Buka dan jalankan Jupyter Notebook:
+```bash
+jupyter notebook Renewable_Energy_Data_Understanding.ipynb
+```
+Pilih **Kernel $\rightarrow$ Restart & Run All**. Seluruh visualisasi pada folder `figures/` dan berkas pada `outputs/` akan ter-generate ulang secara deterministik.
+
+---
+
+## 👥 Tim Peneliti & Kontributor
+
+Program Studi Informatika, Jurusan Informatika, Fakultas Teknik Industri  
+**Universitas Pembangunan Nasional "Veteran" Yogyakarta, 2026**
+
+- **Dosen Pengampu:** Dhimas Arief Dharmawan
+- **Anggota Kelompok:**
+  1. Artsetya Evan Justine Wijaya (NIM: `123240169`)
+  2. Michael Bintang F.S.J (NIM: `123240145`)
+  3. Anisa Zahida (NIM: `123240049`)
+  4. Hardanu Ilham Purnama (NIM: `123240166`)
