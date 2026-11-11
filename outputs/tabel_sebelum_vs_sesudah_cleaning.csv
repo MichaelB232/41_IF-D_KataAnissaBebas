@@ -1,0 +1,8 @@
+Metrik,Sebelum_Cleaning,Sesudah_Cleaning,Keterangan_Perubahan
+Jumlah Baris Total,3065,2448,Dikeluarkan sektor Transportation (613 baris) & Jan 2024 (4 baris)
+Jumlah Kolom,17,20,"Ditambahkan kolom fusi 'hydro', 'date', dan indeks tren 't'"
+Jumlah Sektor,5,4,"4 sektor aktif (Electric Power, Industrial, Residential, Commercial)"
+Inkonsistensi Ejaan Sektor,Ada ('Commerical'),0 (Telah distandardisasi),Diganti menjadi 'Commercial' standar
+Missing Value Target (Total),613 baris (20.0%),0 baris (0.0%),100% baris target kini bersih dan valid untuk analisis
+Pencatatan Hydroelectric,2 kolom terpisah saling komplementer,1 kolom terpadu ('hydro'),Kolom Hydroelectric Power & Conventional digabungkan tanpa redudansi
+Rentang Periode Data,1973 - 2024 (Jan 2024 parsial),1973 - 2023 (612 bulan utuh),Menghindari bias estimasi tahunan akibat data parsial 1 bulan

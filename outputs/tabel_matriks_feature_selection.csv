@@ -1,0 +1,8 @@
+Nama_Fitur,Kategori,Status,Alasan_dan_Bukti
+Sector (One-Hot),Fitur Asli (Direncanakan),Dipakai,Perbedaan skala antar-sektor sangat dominan (Eta-kuadrat = 82.5%). Mampu meningkatkan R2 dari -0.14 menjadi 0.62.
+t (Indeks Waktu Bulanan),Fitur Rekayasa (Engineered),Dipakai,Menangkap tren jangka panjang. Korelasi Spearman terhadap waktu mencapai 0.94 pada sektor Electric Power.
+Sector x t (Interaksi Tren),Fitur Rekayasa (Engineered),Dipakai,"Laju tren antar-sektor berlawanan (Electric Power naik pesat, Industrial/Residential stagnan). Meningkatkan R2 dari 0.62 ke 0.85."
+Month (Dummy / Cyclical),Fitur Asli / Rekayasa,Dipakai,Pola musiman terbukti signifikan secara statistik (Kruskal-Wallis p < 0.001). Menyempurnakan R2 model hingga 0.88.
+"Sub-komponen Energi Mentah (Hydro, Solar, Wind, Biomass, dll)",Fitur Asli,Dibuang,Target Leakage & Multikolinearitas. Total Renewable Energy merupakan hasil penjumlahan langsung dari sub-komponen tersebut.
+Sektor Transportation,Kategori Data,Dibuang,Missing Data 100% pada variabel target (Total Renewable Energy bernilai 0 / NaN di seluruh 613 baris).
+Observasi Tahun 2024 (Januari 2024),Observasi Temporal,Dibuang,"Tahun parsial / tidak lengkap (hanya 1 bulan), berpotensi mendistorsi analisis tren tahunan dan siklus tahunan penuh."

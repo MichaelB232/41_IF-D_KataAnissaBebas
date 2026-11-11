@@ -1,0 +1,7 @@
+Data,Model,n uji,R2,RMSE,MAPE %
+5 sektor (Transportation = 0),Rata-rata (mean predictor),305,-0.131,107.7,102.1
+5 sektor (Transportation = 0),Hanya sektor,305,0.61,63.2,36.3
+5 sektor (Transportation = 0),Sektor x tren + bulan,305,0.893,33.2,16.2
+4 sektor,Rata-rata (mean predictor),244,-0.222,107.4,127.7
+4 sektor,Hanya sektor,244,0.471,70.7,36.3
+4 sektor,Sektor x tren + bulan,244,0.855,37.0,16.5

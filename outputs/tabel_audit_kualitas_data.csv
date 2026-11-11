@@ -1,0 +1,18 @@
+Kolom,Tipe_Data,Jumlah_Missing,Persen_Missing,Jumlah_Unik,Jumlah_Outlier_IQR,Persen_Outlier,Catatan_Audit
+Year,int64,0,0.0,52,0,0.0,Normal
+Month,int64,0,0.0,12,0,0.0,Normal
+Sector,object,0,0.0,5,0,0.0,Ada typo ejaan: 'Commerical'
+Hydroelectric Power,float64,2040,66.56,509,0,0.0,2040 nilai 0 adalah missing/unreported; Dua kolom komplementer pencatatan hidro
+Geothermal Energy,float64,1189,38.79,750,0,0.0,1189 nilai 0 adalah missing/unreported
+Solar Energy,float64,1330,43.39,1054,136,7.84,1330 nilai 0 adalah missing/unreported
+Wind Energy,float64,2274,74.19,473,161,20.35,2274 nilai 0 adalah missing/unreported
+Wood Energy,float64,613,20.0,1606,0,0.0,613 nilai 0 adalah missing/unreported
+Waste Energy,float64,1514,49.4,1381,0,0.0,1514 nilai 0 adalah missing/unreported
+"Fuel Ethanol, Excluding Denaturant",float64,1514,49.4,939,257,16.57,1514 nilai 0 adalah missing/unreported
+Biomass Losses and Co-products,float64,2548,83.13,405,0,0.0,2548 nilai 0 adalah missing/unreported
+Biomass Energy,float64,709,23.13,1919,0,0.0,709 nilai 0 adalah missing/unreported
+Total Renewable Energy,float64,613,20.0,2137,0,0.0,613 nilai 0 adalah missing/unreported; Target; 100% missing pada sektor Transportation
+Renewable Diesel Fuel,float64,2908,94.88,158,17,10.83,2908 nilai 0 adalah missing/unreported
+Other Biofuels,float64,2944,96.05,115,22,18.18,2944 nilai 0 adalah missing/unreported
+Conventional Hydroelectric Power,float64,2452,80.0,613,0,0.0,2452 nilai 0 adalah missing/unreported; Dua kolom komplementer pencatatan hidro
+Biodiesel,float64,2788,90.96,270,0,0.0,2788 nilai 0 adalah missing/unreported
