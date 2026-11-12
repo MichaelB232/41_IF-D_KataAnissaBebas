@@ -1,5 +1,0 @@
-Tingkat_Model,Fitur_Digunakan,R2_Test,RMSE_Test,MAPE_Test_%,Keterangan
-Baseline 1: Rerata Global,None (Intersept Rerata Latih),-0.2223,107.44,127.85,Tanpa informasi sektor maupun waktu
-Model 2: Hanya Sektor,Sector (One-Hot),0.4712,70.67,36.32,Menangkap perbedaan skala konsumsi dasar per sektor
-Model 3: Sektor x Tren,Sector + Sector_t (Interaksi),0.8524,37.34,15.83,Menangkap divergensi arah pertumbuhan tiap sektor
-Model 4: Penuh (Sektor + Tren + Musiman),Sector + Sector_t + Month (Dummy),0.8544,37.08,16.6,Kombinasi fitur terseleksi optimal (R2 melonjak ke 0.88)

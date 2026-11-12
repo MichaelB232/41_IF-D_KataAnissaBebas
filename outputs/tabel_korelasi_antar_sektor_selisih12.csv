@@ -1,5 +1,0 @@
-Sector,Electric Power,Industrial,Residential,Commercial
-Electric Power,1.0,0.03,-0.01,0.48
-Industrial,0.03,1.0,0.21,0.02
-Residential,-0.01,0.21,1.0,0.27
-Commercial,0.48,0.02,0.27,1.0

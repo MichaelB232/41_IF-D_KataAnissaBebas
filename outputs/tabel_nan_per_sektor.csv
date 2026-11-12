@@ -1,6 +1,0 @@
-Sector,Hydro,Geothermal,Solar,Wind,Biomass,Wood,Waste,Ethanol,Biodiesel,Total
-Electric Power,0.0,0.0,23.0,24.0,0.0,0.0,0.0,100.0,100.0,0.0
-Industrial,0.0,31.0,31.0,75.0,0.0,0.0,16.0,16.0,100.0,0.0
-Residential,100.0,31.0,31.0,100.0,100.0,0.0,100.0,100.0,100.0,0.0
-Commercial,33.0,31.0,31.0,73.0,0.0,0.0,31.0,16.0,100.0,0.0
-Transportation,100.0,100.0,100.0,100.0,16.0,100.0,100.0,16.0,55.0,100.0
