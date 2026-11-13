@@ -86,43 +86,26 @@ Pengujian bertahap pada himpunan data uji (*out-of-time test set*) membuktikan k
 
 ## 📁 Struktur Berkas Repositori
 
+Repositori ini menggunakan struktur modular standar industri (*Cookiecutter Data Science style*):
+
 ```
-├── Renewable_Energy_Data_Understanding.ipynb   # Notebook utama (Data Understanding s/d Preprocessing)
-├── README.md                                    # Dokumentasi komprehensif proyek
-├── requirements.txt                             # Daftar dependensi pustaka Python
 ├── data/
-│   └── dataset.csv                             # Dataset mentah asli EIA/Kaggle (3.065 baris)
-├── figures/                                    # Grafik visualisasi resolusi tinggi (PNG)
-│   ├── gambar1_pola_nan.png                    # Heatmap missing data per sektor dan jenis energi
-│   ├── gambar2_deret_waktu_sektor.png          # Deret waktu konsumsi bulanan vs MA 12-bulan
-│   ├── gambar3_indeks_musiman.png              # Indeks musiman rasio per sektor
-│   ├── gambar4_bauran_electric_power.png       # Evolusi transisi bauran energi listrik
-│   ├── gambar5_sebelum_vs_sesudah_cleaning.png # Metrik perbandingan kondisi data sebelum vs sesudah cleaning
-│   ├── gambar6_evaluasi_feature_selection.png  # Bukti kenaikan R² dan penurunan RMSE per model
-│   ├── gambar7_train_test_split.png            # Visualisasi time-series split (Train vs Test)
-│   ├── gambarB1_distribusi_total_sektor.png    # Histogram distribusi konsumsi tiap sektor
-│   ├── gambarB2_boxplot_indeks_bulan.png       # Variasi sebaran rasio musiman per bulan
-│   ├── gambarB3_acf_selisih_pertama.png        # Plot Autokorelasi (ACF) setelah differencing
-│   └── gambarB4_korelasi_antar_sektor.png      # Matriks korelasi silang antar sektor
-└── outputs/                                    # Dataset bersih, partisi train/test, dan tabel analisis (CSV)
-    ├── dataset_bersih.csv                      # Data bersih konsumsi (2.448 baris x 17 kolom)
-    ├── train_dataset.csv                       # Data latih kronologis 1973–2018 (2.208 baris)
-    ├── test_dataset.csv                        # Data uji kronologis 2019–2023 (240 baris)
-    ├── X_train_preprocessed.csv                # Matriks fitur latih siap regresi
-    ├── X_test_preprocessed.csv                 # Matriks fitur uji siap regresi
-    ├── y_train.csv                             # Target latih
-    ├── y_test.csv                              # Target uji
-    ├── tabel_audit_kualitas_data.csv           # Ringkasan audit missing, duplikat, outlier per kolom
-    ├── tabel_sebelum_vs_sesudah_cleaning.csv   # Perbandingan kuantitatif pembersihan data
-    ├── tabel_matriks_feature_selection.csv     # Matriks alasan seleksi fitur dipakai/dibuang
-    ├── tabel_evaluasi_model.csv                # Rekapitulasi metrik performa model
-    ├── tabel_deskriptif_sektor.csv             # Statistik deskriptif dan laju CAGR per sektor
-    ├── tabel_tren_musiman_stasioneritas.csv    # Evaluasi STL, Kruskal-Wallis, ADF, dan ACF
-    ├── tabel_bauran_electric_power.csv         # Pangsa bauran sumber energi listrik
-    ├── tabel_outlier_iqr.csv                   # Deteksi outlier aturan IQR per sektor
-    ├── tabel_validasi_rumus_total.csv          # Verifikasi konsistensi penjumlahan target
-    ├── tabel_korelasi_waktu_bulan.csv          # Korelasi Spearman terhadap waktu dan musiman
-    └── verifikasi_angka_business_understanding.csv # Verifikasi angka SMART
+│   ├── raw/
+│   │   └── dataset.csv                         # Dataset mentah asli EIA/Kaggle (3.065 baris)
+│   └── processed/                              # Data bersih & hasil preprocessing (CSV)
+├── notebooks/
+│   ├── 01_data_understanding.ipynb             # Audit kualitas data & Visual EDA
+│   ├── 02_data_cleaning.ipynb                  # Pembersihan data & fusi fitur (in progress)
+│   └── archive/
+│       └── Renewable_Energy_Data_Understanding.ipynb # Arsip notebook eksplorasi awal
+├── outputs/                                    # Tabel audit, metrik evaluasi, & hasil ekspor (CSV)
+├── reports/
+│   └── figures/                                # Grafik visualisasi resolusi tinggi (PNG)
+├── src/                                        # Modul skrip Python reusable (pipeline/utils)
+├── .gitignore
+├── LICENSE
+├── README.md                                   # Dokumentasi komprehensif proyek
+└── requirements.txt                            # Daftar dependensi pustaka Python
 ```
 
 ---
@@ -149,12 +132,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Eksekusi Analisis
-Buka dan jalankan Jupyter Notebook:
-```bash
-jupyter notebook Renewable_Energy_Data_Understanding.ipynb
-```
-Pilih **Kernel $\rightarrow$ Restart & Run All**. Seluruh visualisasi pada folder `figures/` dan berkas pada `outputs/` akan ter-generate ulang secara deterministik.
+### 3. Eksekusi Analisis Secara Bertahap
+Jalankan notebook di dalam folder `notebooks/` secara berurutan:
+1. `notebooks/01_data_understanding.ipynb` — Audit kesehatan data, forensik anomali, dan Visual EDA.
+2. `notebooks/02_data_cleaning.ipynb` — Eksekusi rencana pembersihan data dan ekspor ke `data/processed/`.
 
 ---
 
