@@ -38,6 +38,16 @@ Proyek ini mengimplementasikan alur **CRISP-DM** end-to-end — mulai dari audit
 
 ---
 
+## 🗄️ Sumber Data & Lisensi
+
+- **Dataset:** *U.S. Renewable Energy Consumption* (Alistair King, Kaggle)
+- **Tautan Kaggle:** https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s
+- **Sumber Data Primer:** *U.S. Energy Information Administration (EIA)* — [*Monthly Energy Review*](https://www.eia.gov/totalenergy/data/monthly/)
+- **Lisensi Data:** **U.S. Government Works** (*Public Domain*)
+- **Satuan & Cakupan Mentah:** **Trillion BTU** (`3.065 baris × 17 kolom`, Jan 1973–Jan 2024 $\rightarrow$ dibersihkan menjadi `2.448 baris` periode penuh `1973–2023`).
+
+---
+
 ## 🔬 Metodologi Penelitian (Kerangka CRISP-DM)
 
 Proyek ini disusun secara sistematis mengacu pada standar industri **CRISP-DM (Cross-Industry Standard Process for Data Mining)**:
@@ -167,8 +177,11 @@ Program Studi Informatika, Jurusan Informatika, Fakultas Teknik Industri
 **Universitas Pembangunan Nasional "Veteran" Yogyakarta, 2026**
 
 - **Dosen Pengampu:** Dhimas Arief Dharmawan
-- **Anggota Kelompok:**
-  1. Artsetya Evan Justine Wijaya (NIM: `123240169`)
-  2. Michael Bintang F.S.J (NIM: `123240145`)
-  3. Anisa Zahida (NIM: `123240049`)
-  4. Hardanu Ilham Purnama (NIM: `123240166`)
+- **Anggota Kelompok & Kontribusi:**
+
+| No | Nama Anggota | NIM | Kontribusi |
+|:---:|---|:---:|---|
+| 1 | Artsetya Evan Justine Wijaya | `123240169` | |
+| 2 | Michael Bintang F.S.J | `123240145` | |
+| 3 | Anisa Zahida | `123240049` | |
+| 4 | Hardanu Ilham Purnama | `123240166` | |
