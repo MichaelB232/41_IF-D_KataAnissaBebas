@@ -1,9 +1,11 @@
-# Diuji dengan Python 3.12
+# Tested on Python 3.10–3.12
 pandas>=2.2
 numpy>=1.26
 scipy>=1.11
 statsmodels>=0.14
+scikit-learn>=1.4
 matplotlib>=3.8
+seaborn>=0.13
 jupyter>=1.0
 nbconvert>=7.0
 ipykernel>=6.0

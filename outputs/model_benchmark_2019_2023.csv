@@ -1,0 +1,7 @@
+Model,Horizon,Test R²,Test RMSE,Test MAPE (%),Passes SMART (<10% MAPE & <=40 RMSE)
+Seasonal Naive (2018 Repeat),5-Yr Blind,0.9595,19.56,10.58,False
+Model 4: Baseline OLS,5-Yr Blind,0.8544,37.08,16.6,False
+Model 5: Improved OLS (Sec×t² + Sec×Mo),5-Yr Blind,0.9419,23.42,15.54,False
+Model 6: Holt-Winters (All Damped),5-Yr Blind,0.9491,21.93,10.59,False
+Model 6b: Auto-AIC Holt-Winters [5-Yr Winner],5-Yr Blind,0.9621,18.92,10.1,False
+Model 7: Lag-1/Lag-12 OLS [1-Mo Winner],1-Mo Ahead,0.9925,8.41,5.97,True
